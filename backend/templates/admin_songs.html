@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панель - Управление песнями</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='songs.css') }}">
+</head>
+<body>
+    <h1>Управление заказами песен</h1>
+
+    <div class="admin-controls">
+        <a href="{{ url_for('admin_panel') }}" class="nav-btn">⬅️ К очереди игроков</a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Выйти</a>
+    </div>
+
+    <div class="admin-songs-container">
+        <!-- Подтверждение доната -->
+        <div class="confirm-donation-section">
+            <h2>Подтверждение доната</h2>
+            <div class="confirm-form">
+                <input type="text" id="order-code-input" placeholder="Введите код заказа">
+                <button id="confirm-btn">Подтвердить донат</button>
+            </div>
+            <div id="confirm-message" class="confirm-message"></div>
+        </div>
+
+        <!-- Очередь песен для воспроизведения -->
+        <div class="songs-queue-section">
+            <h2>Очередь песен для воспроизведения</h2>
+            <div id="songs-queue" class="songs-list">
+                <div class="loading">Загрузка...</div>
+            </div>
+        </div>
+
+        <!-- Все заказы -->
+        <div class="all-orders-section">
+            <h2>Все заказы</h2>
+            <div class="filter-controls">
+                <button data-status="all" class="filter-btn active">Все</button>
+                <button data-status="pending" class="filter-btn">Ожидающие</button>
+                <button data-status="confirmed" class="filter-btn">Подтвержденные</button>
+                <button data-status="completed" class="filter-btn">Добавленные</button>
+            </div>
+            <div id="all-orders" class="orders-list">
+                <div class="loading">Загрузка...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin_songs.js') }}"></script>
+</body>
+</html>

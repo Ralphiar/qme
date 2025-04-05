@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ песен для стрима</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/songs.css') }}">
+</head>
+<body>
+    <h1>Заказ песен для стрима</h1>
+
+    <!-- Навигация назад -->
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}" class="back-link">← Вернуться к очереди игроков</a>
+    </div>
+
+    <div class="song-order-container">
+        <h2>Как это работает</h2>
+        <ol class="instructions">
+            <li>Введите свой никнейм и нажмите "Создать заказ"</li>
+            <li>Сделайте донат любой суммы через Donation Alerts, указав в сообщении код заказа</li>
+            <li>После подтверждения доната стримером, вы сможете добавить ссылку на YouTube с любимой песней</li>
+            <li>Песня будет добавлена в очередь и проиграна во время стрима</li>
+        </ol>
+
+        <div class="order-form" id="song-order-form">
+            <input type="text" id="nickname" placeholder="Введите ваш никнейм" maxlength="100">
+            <button id="create-order-btn">Создать заказ</button>
+        </div>
+
+        <div class="order-info" id="order-info" style="display: none;">
+            <h3>Ваш заказ создан!</h3>
+            <p>Код заказа: <span id="order-code" class="order-code"></span></p>
+            <p>Теперь сделайте донат через Donation Alerts и укажите этот код в сообщении.</p>
+            <a id="donate-link" href="#" class="donate-btn" target="_blank">Перейти к донату</a>
+            <p class="check-status">
+                После доната, вы сможете проверить статус заказа, введя код:
+                <input type="text" id="check-code" placeholder="Введите код заказа">
+                <button id="check-order-btn">Проверить</button>
+            </p>
+        </div>
+
+        <div class="order-status" id="order-status" style="display: none;">
+            <h3>Статус заказа</h3>
+            <div id="status-content"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='song.js') }}"></script>
+</body>
+</html>

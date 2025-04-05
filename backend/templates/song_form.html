@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление песни</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='songs.css') }}">
+</head>
+<body>
+    <h1>Добавление песни</h1>
+
+    <div class="song-form-container">
+        <h2>Ваш донат подтвержден!</h2>
+        <p>Заказ #{{ order.order_code }} для {{ order.nickname }}</p>
+
+        <div class="song-form">
+            <div class="form-group">
+                <label for="youtube-url">Ссылка на YouTube*:</label>
+                <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." required>
+                <p class="form-hint">Вставьте ссылку на видео с YouTube</p>
+            </div>
+
+            <div class="form-group">
+                <label for="song-title">Название песни:</label>
+                <input type="text" id="song-title" placeholder="Название песни">
+            </div>
+
+            <div class="form-group">
+                <label for="artist">Исполнитель:</label>
+                <input type="text" id="artist" placeholder="Исполнитель">
+            </div>
+
+            <button id="submit-song-btn">Добавить песню</button>
+        </div>
+
+        <div class="song-success" id="song-success" style="display: none;">
+            <h3>Спасибо!</h3>
+            <p>Ваша песня добавлена в очередь и будет воспроизведена во время стрима.</p>
+            <a href="{{ url_for('songs_page') }}" class="back-btn">Вернуться на главную</a>
+        </div>
+
+        <div class="song-error" id="song-error" style="display: none;">
+            <h3>Ошибка</h3>
+            <p id="error-message"></p>
+            <button id="try-again-btn" class="back-btn">Попробовать снова</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitBtn = document.getElementById('submit-song-btn');
+            const songForm = document.querySelector('.song-form');
+            const songSuccess = document.getElementById('song-success');
+            const songError = document.getElementById('song-error');
+            const errorMessage = document.getElementById('error-message');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+
+            // Проверка правильности YouTube URL
+            function isValidYoutubeUrl(url) {
+                const pattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+                return pattern.test(url);
+            }
+
+            submitBtn.addEventListener('click', function() {
+                const youtubeUrl = document.getElementById('youtube-url').value.trim();
+                const songTitle = document.getElementById('song-title').value.trim();
+                const artist = document.getElementById('artist').value.trim();
+
+                if (!youtubeUrl) {
+                    errorMessage.textContent = 'Пожалуйста, введите ссылку на YouTube видео';
+                    songForm.style.display = 'none';
+                    songError.style.display = 'block';
+                    return;
+                }
+
+                if (!isValidYoutubeUrl(youtubeUrl)) {
+                    errorMessage.textContent = 'Пожалуйста, введите корректную ссылку на YouTube видео';
+                    songForm.style.display = 'none';
+                    songError.style.display = 'block';
+                    return;
+                }
+
+                fetch('/add_song_details', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        order_code: '{{ order.order_code }}',
+                        youtube_url: youtubeUrl,
+                        song_title: songTitle,
+                        artist: artist
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        errorMessage.textContent = data.error;
+                        songForm.style.display = 'none';
+                        songError.style.display = 'block';
+                    } else {
+                        songForm.style.display = 'none';
+                        songSuccess.s

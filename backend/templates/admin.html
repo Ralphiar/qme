@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Админ панель</h1>
+
+    <div class="admin-controls">
+        <button id="toggle-queue-btn" class="toggle-btn queue-open">Статус очереди</button>
+        <button id="clear-queue-btn" class="clear-btn">Очистить очередь</button>
+        <a href="{{ url_for('admin_songs') }}" class="admin-link">🎵 Управление песнями</a>
+        <a href="/logout" class="logout-btn">Выйти</a>
+    </div>
+
+    <div class="players-container">
+        <div class="player-block">
+            <h2>Список ожидающих игроков</h2>
+            <ul id="queue-list-admin"></ul>
+        </div>
+
+        <div class="player-block">
+            <h2>Список активных игроков</h2>
+            <ul id="active-list-admin"></ul>
+        </div>
+
+        <div class="player-block">
+            <h2>Игроки, завершившие игру</h2>
+            <ul id="completed-list-admin"></ul>
+        </div>
+    </div>
+
+    <div class="leaderboard-section">
+        <h2>Таблица лидеров</h2>
+        <table id="leaderboard-table" class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Место</th>
+                    <th>Игрок</th>
+                    <th>Оценка</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-container"></tbody>
+        </table>
+    </div>
+
+    <!-- Подключение основного модуля -->
+    <script type="module" src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='songs.css') }}">
+</head>
+<body>
+    <h1>Ошибка</h1>
+
+    <div class="error-container">
+        <div class="error-message">
+            <h2>{{ message }}</h2>
+            <p>Пожалуйста, вернитесь назад и попробуйте снова.</p>
+            <a href="{{ url_for('songs_page') }}" class="back-btn">Вернуться на страницу заказа песен</a>
+        </div>
+    </div>
+</body>
+</html>

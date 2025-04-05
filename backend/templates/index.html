@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Bright Kate Stream</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Очередь игроков</h1>
+
+    <!-- Форма добавления в очередь -->
+    <form id="queue-form">
+        <input type="text" id="nickname" placeholder="Введите никнейм" maxlength="100" required>
+        <button type="submit">Записаться</button>
+    </form>
+
+    <!-- Контейнер для списка игроков -->
+    <div class="players-container">
+        <div class="player-block">
+            <h2>Список ожидающих игроков</h2>
+            <ul id="queue-list"></ul>
+        </div>
+
+        <div class="player-block">
+            <h2>Список активных игроков</h2>
+            <ul id="active-list"></ul>
+        </div>
+
+        <div class="player-block">
+            <h2>Игроки, завершившие игру</h2>
+            <ul id="completed-list"></ul>
+        </div>
+    </div>
+
+    <!-- Таблица лидеров -->
+    <div class="leaderboard-section">
+        <h2>Таблица лидеров</h2>
+        <div class="table-container">
+            <table id="leaderboard-table" class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Игрок</th>
+                        <th>Оценка</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-container"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Подключение основного модуля -->
+    <script type="module" src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
