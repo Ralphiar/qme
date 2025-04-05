@@ -6,7 +6,7 @@ from backend import app, db
 from backend.models import Queue, ActivePlayers, CompletedPlayers
 from config import Config
 
-app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(16))
+# app.secret_key = os.environ.get('SECRET_KEY', secrets.token_hex(16))
 queue_open = True
 
 @app.route('/')
